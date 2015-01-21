@@ -20,8 +20,8 @@ import qualified Data.Set as Set
 
 newtype TypeEnv = TypeEnv (Map.Map Var Scheme) deriving Monoid
 
-data Unique = Unique { count :: Int }
-type Infer a = ExceptT TypeError (State Unique) a
+data Supply = Supply { names :: [String] }
+type Infer a = ExceptT TypeError (State Supply) a
 type Subst = Map.Map TVar Type
 
 data TypeError
@@ -31,7 +31,7 @@ data TypeError
   | GenericTypeError
 
 runInfer :: Infer (Subst, Type) -> Either TypeError Scheme
-runInfer m = case evalState (runExceptT m) initUnique of
+runInfer m = case evalState (runExceptT m) initSupply of
   Left err  -> Left err
   Right res -> Right $ closeOver res
 
@@ -39,8 +39,8 @@ closeOver :: (Map.Map TVar Type, Type) -> Scheme
 closeOver (sub, ty) = normalize sc
   where sc = generalize emptyTyenv (apply sub ty)
 
-initUnique :: Unique
-initUnique = Unique { count = 0 }
+initSupply :: Supply
+initSupply = Supply { names = letters }
 
 extend :: TypeEnv -> (Var, Scheme) -> TypeEnv
 extend (TypeEnv env) (x, s) = TypeEnv $ Map.insert x s env
@@ -109,8 +109,8 @@ letters = [1..] >>= flip replicateM ['a'..'z']
 fresh :: Infer Type
 fresh = do
   s <- get
-  put s{count = count s + 1}
-  return $ TVar $ TV (letters !! count s)
+  put s{names = tail (names s)}
+  return $ TVar $ TV (head (names s))
 
 instantiate ::  Scheme -> Infer Type
 instantiate (Forall as t) = do
