@@ -506,6 +506,7 @@ argument but return the value of the second.
 
 Monoids
 -------
+*** This section would benefit from some explanation.
 
 ```haskell
 class Monoid a where
@@ -581,6 +582,7 @@ which effectively is embedded inside of ``IO``).
 ```
 
 The IO monad is a special monad wired into the runtime. It is a degenerate case
+*** Special yes, but how is it degenerate?
 and most monads in Haskell have nothing to do with effects in this sense.
 
 ```haskell

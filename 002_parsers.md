@@ -181,6 +181,7 @@ The limitations of the String type are well-known, but what is particularly nice
 about this approach is that it adapts to different stream types simply by
 adding an additional parameter to the Parser type which holds the stream type.
 In place a more efficient data structure like ``Data.Text`` can replaced.
+*** That sentence needs to be fixed.
 
 ```haskell
 newtype Parser s a = Parser { parse :: s -> [(a,s)] }

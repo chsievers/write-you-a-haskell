@@ -144,6 +144,7 @@ function f() {
 The behavior of a pure function is independent of where and when it is
 evaluated, whereas the sequence a impure function is intrinsically tied to its
 behavior.
+*** That sentence needs to be rephrased.
 
 Functional programming is defined simply as programming strictly with pure
 referentially transparent functions.
@@ -159,6 +160,7 @@ programs.
 In a language like Python all expressions have the same type at compile time,
 and all syntactically valid programs can be evaluated. In the case where the
 program is nonsensical the runtime will bubble up exceptions at runtime. The
+*** That is correct, but the double "runtime" sounds strange.
 Python interpreter makes no attempt to analyze the given program for soundness
 at all before running it.
 
@@ -183,6 +185,9 @@ Prelude> True && "false"
     In the expression: True && "false"
     In an equation for `it': it = True && "false"
 ```
+*** The difference is not very obvious in this example.
+*** Probably it's better to define a function and run it, and then show
+*** that haskell already rejects the function definition.
 
 Catching minor type mismatch errors is the simplest example of usage, although
 they occur extremely frequently as we humans are quite fallible in our reasoning
@@ -193,6 +198,7 @@ large variety of program correctness properties.
 
 * Preventing resource allocation errors.
 * Enforcing security access for program logic.
+*** I don't understand that.
 * Side effect management.
 * Preventing buffer overruns.
 * Ensuring cryptographic properties for network protocols.
@@ -212,6 +218,7 @@ Functional Compilers
 
 A *compiler* is a program for turning high-level representation of ideas in a
 human readable language into another form. A compiler is typically divided into
+*** That's very general...
 parts, a *frontend* and a *backend*. These are loose terms but the frontend
 typically deals with converting the human representation of the code into some
 canonicalized form while the backend converts the canonicalized form into
@@ -272,6 +279,7 @@ We can then scan the token stream via and dispatch on predefined patterns of
 tokens called *productions* and recursively build up a datatype for the
 *abstract syntax tree* (AST) by traversal of the input stream and generation of
 the appropriate syntactic.
+*** Please redo that sentence.
 
 ```haskell
 type Name = String
@@ -338,6 +346,7 @@ b  ~  Int -> c
 ```haskell
 f :: Int -> Int
 ```
+*** I don't understand these examples.
 
 In some cases this type will be incorporated directly into the AST and the
 inference will transform the frontend language into an explicitly typed *core
@@ -359,8 +368,10 @@ Transformation
 The type core representation is often suitable for evaluation, but quite often
 different intermediate representations are more amenable to certain
 optimizations and make explicit semantic properties of the language explicit.
+*** Do we need both "explicit"?
 These kind of intermediate forms will often attach information about free
 variables, allocations, and usage information directly onto the AST to make it 
+*** That sentence is lacking its end.
 
 The most important form we will use is called the *Spineless Tagless G-Machine*
 ( STG ), an abstract machine that makes many of the properties of lazy

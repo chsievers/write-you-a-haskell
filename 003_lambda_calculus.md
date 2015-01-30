@@ -27,6 +27,7 @@ thereof:
 
 The terms are named are typically referred to in code by the following
 contractions.
+*** There is something wrong with that sentence.
 
 - **Var** - A variable
 - **Lam** - A lambda abstraction
