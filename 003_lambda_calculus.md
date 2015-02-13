@@ -25,9 +25,8 @@ thereof:
 ![](img/lambda.png)
 </div>
 
-The terms are named are typically referred to in code by the following
-contractions.
-*** There is something wrong with that sentence.
+These types are typically referred to in code by several contractions of their
+names:
 
 - **Var** - A variable
 - **Lam** - A lambda abstraction
@@ -226,13 +225,13 @@ A substitution metavariable will be written as $[s]$.
 In detail, substitution is defined like this:
 
 $$
-\begin{array}{rll}
-[x/a] x = & a\\
-[x/a] y = & y & \text{if $x\neq y$}\\
-[x/a]ee' = & ([x/a]e)([x/a]e')\\
-[x/a]\lambda x.e = & \lambda x.e\\
-[x/a]\lambda y.e = & \lambda y.[x/a]e & \text{if $x\neq y$ and $y\notin\FV{e}}\\
-\end{array}
+\begin{aligned}
+& [x/a] x          &=& \ a\\
+& [x/a] y          &=& \ y & \text{if}\ x\neq y\\
+& [x/a]ee'         &=& \ ([x/a]e)([x/a]e')\\
+& [x/a]\lambda x.e &=& \ \lambda x.e\\
+& [x/a]\lambda y.e &=& \ \lambda y.[x/a]e & \text{if}\ x \neq y\ \text{and}\ y \notin\FV{e}
+\end{aligned}
 $$
 
 The fundamental issue with using locally named binders is the problem of *name
@@ -356,7 +355,7 @@ added to the lambda calculus syntax. In the untyped lambda calculus, let
 bindings are semantically equivalent to applied lambda expressions.
 
 $$
-\mathtt{let}\ a = e\ \mathtt{in}\ b \quad := \quad (λa.b) e
+\mathtt{let}\ a = e\ \mathtt{in}\ b \quad := \quad (\lambda a.b) e
 $$
 
 In our languages we will write let statements like they appear in Haskell.

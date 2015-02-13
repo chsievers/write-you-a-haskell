@@ -142,9 +142,8 @@ function f() {
 ```
 
 The behavior of a pure function is independent of where and when it is
-evaluated, whereas the sequence a impure function is intrinsically tied to its
-behavior.
-*** That sentence needs to be rephrased.
+evaluated, whereas the behavior of an impure function is intrinsically tied to
+its execution order.
 
 Functional programming is defined simply as programming strictly with pure
 referentially transparent functions.
@@ -159,10 +158,9 @@ programs.
 
 In a language like Python all expressions have the same type at compile time,
 and all syntactically valid programs can be evaluated. In the case where the
-program is nonsensical the runtime will bubble up exceptions at runtime. The
-*** That is correct, but the double "runtime" sounds strange.
-Python interpreter makes no attempt to analyze the given program for soundness
-at all before running it.
+program is nonsensical the runtime will bubble up exceptions during evaluation.
+The Python interpreter makes no attempt to analyze the given program for
+soundness at all before running it.
 
 ```bash
 >>> True & "false"
@@ -197,8 +195,7 @@ of the iceberg, the gradual trend over the last 20 years goes toward more
 large variety of program correctness properties.
 
 * Preventing resource allocation errors.
-* Enforcing security access for program logic.
-*** I don't understand that.
+* Enforcing security in communication protocols.
 * Side effect management.
 * Preventing buffer overruns.
 * Ensuring cryptographic properties for network protocols.
@@ -276,10 +273,9 @@ following:
 ```
 
 We can then scan the token stream via and dispatch on predefined patterns of
-tokens called *productions* and recursively build up a datatype for the
-*abstract syntax tree* (AST) by traversal of the input stream and generation of
-the appropriate syntactic.
-*** Please redo that sentence.
+tokens called *productions* and recursively builds up the syntax datatype for
+the *abstract syntax tree* (AST) by traversal of the input stream.
+*** That sentence still doesn't work.
 
 ```haskell
 type Name = String
@@ -367,11 +363,9 @@ Transformation
 
 The type core representation is often suitable for evaluation, but quite often
 different intermediate representations are more amenable to certain
-optimizations and make explicit semantic properties of the language explicit.
-*** Do we need both "explicit"?
+optimizations and make various semantic properties of the language explicit.
 These kind of intermediate forms will often attach information about free
-variables, allocations, and usage information directly onto the AST to make it 
-*** That sentence is lacking its end.
+variables, allocations, and usage information directly in the AST structure.
 
 The most important form we will use is called the *Spineless Tagless G-Machine*
 ( STG ), an abstract machine that makes many of the properties of lazy

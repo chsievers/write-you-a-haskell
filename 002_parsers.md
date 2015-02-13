@@ -71,7 +71,7 @@ it over the result of second parse function. Since the parser operation yields a
 list of tuples, composing a second parser function simply maps itself over the
 resulting list and concat's the resulting nested list of lists into a single
 flat list in the usual list monad fashion. The unit operation injects a single
-pure value as result without reading from the parse stream.
+pure value as the result, without reading from the parse stream.
 
 ~~~~ {.haskell slice="chapter3/parsec.hs" lower=23 upper=28}
 ~~~~
@@ -178,10 +178,10 @@ $ runhaskell parsec.hs
 **Generalizing String**
 
 The limitations of the String type are well-known, but what is particularly nice
-about this approach is that it adapts to different stream types simply by
-adding an additional parameter to the Parser type which holds the stream type.
-In place a more efficient data structure like ``Data.Text`` can replaced.
-*** That sentence needs to be fixed.
+about this approach is that it adapts to different stream types simply by adding
+an additional parameter to the Parser type which holds the stream type.  In it's
+place a more efficient string data structure (``Text``, ``ByteString``) can used
+instead.
 
 ```haskell
 newtype Parser s a = Parser { parse :: s -> [(a,s)] }

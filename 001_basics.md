@@ -506,13 +506,28 @@ argument but return the value of the second.
 
 Monoids
 -------
-*** This section would benefit from some explanation.
+
+Monoids provide an interface for structures which have an associative operation
+(``mappend``) and a neutral element (``mempty``) which is the zero for the join
+operation.
 
 ```haskell
 class Monoid a where
   mempty :: a
   mappend :: a -> a -> a
   mconcat :: [a] -> a
+```
+
+The canonical example is the list type with the zero being the empty list.
+
+```haskell
+import Data.Monoid
+
+a :: [Integer]
+a = [1,2,3] <> [4,5,6]
+
+b :: [Integer]
+b = ([1,2,3] <> mempty) <> (mempty <> [4,5,6])
 ```
 
 Deriving
@@ -581,9 +596,8 @@ which effectively is embedded inside of ``IO``).
 1
 ```
 
-The IO monad is a special monad wired into the runtime. It is a degenerate case
-*** Special yes, but how is it degenerate?
-and most monads in Haskell have nothing to do with effects in this sense.
+The IO monad is wired into the runtime with compiler support. It is a special
+case and most monads in Haskell have nothing to do with effects in this sense.
 
 ```haskell
 putStrLn :: String -> IO ()
