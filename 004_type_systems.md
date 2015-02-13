@@ -37,6 +37,9 @@ about the type of a term. It is written with the following notation:
 $$
 1 : \t{Nat}
 $$
+*** $$ ... $$ should not be used unless writing plain TeX, see section 1.6
+*** of "An essential guide to LaTeX2e usage", in a file called l2tabuen.pdf.
+*** I suggest to ignore that for now, but keep it in mind for future projects.
 
 These facts exist within a preset universe of discourse called a *type system*
 with definitions, properties, conventions, and rules of logical deduction about
@@ -130,6 +133,7 @@ semantics.
 
 * **Statics** : Semantic descriptions which are derived from the syntax of the language.
 * **Dynamics** : Semantics descriptions which describe the value evolution resulting from a program.
+*** That sounds unclear to me.
 
 *Type safety* is defined to be the equivalence between the statics and the
 dynamics of the language. This equivalence is modeled by two properties that
@@ -171,6 +175,7 @@ While this is a perfectly acceptable alternative definition, we are not going to
 go that route and instead restrict ourselves purely to the discussion of *static
 types*, in other words types which are known before runtime. Under this set of
 definitions many so-called dynamically typed languages often only have a
+*** Really "set of definitions"? Or only "definition"?
 single static type. For instance in Python all static types are subsumed by the
 ``PyObject`` and it is only at runtime that the tag ``PyTypeObject *ob_type`` is
 discriminated on to give rise to the Python notion of "types". Again, this is not
@@ -358,6 +363,7 @@ now well-typed it will always evaluate to a value and cannot "go wrong" at
 evaluation.
 
 To check the well-formedness of an expression we implement a piece of logic
+*** Should that be "well-typedness"?
 known as *type checker* which determines whether the term has a well-defined
 type in terms of typing rules, and if so returns it or fails with an exception
 in the case where it does not.
@@ -520,6 +526,8 @@ $$
 \begin{array}{cl}
  \displaystyle \frac{e_1 \to e_1'}{e_1 e_2 \to e_1' e_2} & \trule{E-App1} \\ \\
  \displaystyle \frac{e_2 \to e_2'}{v_1 e_2 \to v_1 e_2'} & \trule{E-App2} \\ \\
+*** If you use v instead of e intentionally so it only applies to reduced
+*** values (in WHNF), explan it and maybe add v to the Notation Reference
  \displaystyle {(\lambda x: \tau . e_1) v_2 \to [x / v_2] e_1 } & \trule{E-AppLam} \\ \\
  \displaystyle \ite{\t{True}}{e_2}{e_3} \rightarrow e_2 & \trule{E-IfTrue} \\ \\
  \displaystyle \ite{\t{False}}{e_2}{e_3} \rightarrow e_3 & \trule{E-IfFalse} \\ \\
@@ -529,7 +537,7 @@ $$
 
 Since we now have the notion of scoped variables for lambda, we will implement a
 typing environment ``Env`` as manifest as $\Gamma$ in our typing rules.
-
+*** Should that be "as manifestation of"?
 ```haskell
 type Env = [(Name, Type)]
 
