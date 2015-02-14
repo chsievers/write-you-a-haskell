@@ -42,11 +42,13 @@ dominant models:
 
 Given an expression $f x$ the reduction in different evaluation models proceeds
 differently:
+*** maybe the example should use e instead of x
 
 *Call-by-value*:
 
 1. Evaluate $x$ to $v$
 2. Evaluate $f$ to $\lambda y. e$
+*** Mostly irrelevant, but I'd change the order of 1 and 2
 3. Evaluate $[y/v]e$
 
 *Call-by-name*:
@@ -58,6 +60,7 @@ differently:
 
 1. Allocate a thunk $v$ for $x$
 2. Evaluate $f$ to $\lambda y. e$
+*** Again change the order
 3. Evaluate $[y/v]e$
 
 Terms that have a normal form in one model, may or may not have a normal form in
@@ -104,6 +107,9 @@ simple. Part of the runtime evaluation of lambda calculus involves the creation
 of *closures*, environments which hold the local variables in scope. In our
 little language there are two possible values which reduction may converge on,
 **VInt** and **VClosure**.
+
+*** "two possible value types", maybe?
+*** Also, the following code uses de Bruijn indices which should be explained.
 
 ```haskell
 data Expr
@@ -330,6 +336,7 @@ fact =
           if eval y == 0
           then 1
           else eval y * (eval f) (eval y - 1)))))
+*** Using eval here seems to me a bit like cheating...
 
 test :: Integer
 test = eval fact 10
