@@ -62,11 +62,15 @@ filter pred (x:xs)
 Consider all the things that are going on just in this simple example.
 
 * Lazy evaluation
+*** The function works as well with strict evaluation
 * Custom datatypes
+*** ???
 * Higher order functions
 * Parametric polymorphism
+*** These two are not new compared to what we did before
 * Function definition by pattern matching
 * Pattern matching desugaring
+*** Isn't that just how we handle the previous point?
 * Guards to distinguish sub-cases
 * Type signature must subsume inferred type
 * List syntactic sugar ( value/pattern syntax )
@@ -451,6 +455,7 @@ xor = \_a _b -> case _a of {
 Toplevel declarations in the frontend language can consist of patterns for on
 the right-hand-side of the declaration, while in the Core language these are
 transformed into case statements in the body of the function.
+*** ???
 
 ```haskell
 -- Frontend
@@ -518,6 +523,9 @@ fromRational (3.14 :: Rational)
 ```
 
 We will not implement this, as it drastically expands the desugarer scope.
+*** Not sure what this is supposed to mean exactly, but I am really surprised!
+*** I would have expected overloaded literals to be rather easy to implement.
+*** (Maybe I'll try.)
 
 We will however follow GHC's example in manifesting unboxed types as first
 class values in the language so literals that appear in the AST are rewritten
@@ -548,6 +556,7 @@ implement more complicated features like GADTs and type families.
 
 This is one of the most defining feature of GHC Haskell, its compilation
 into a statically typed intermediate Core language. It is a well-engineers
+*** Should that be "explicitly typed"?
 detail of GHC's design that has informed much of how Haskell the language has
 evolved as a language with a exceedingly large frontend language that all melts
 away into a very tiny concise set of abstractions. Just like GHC we will extract
@@ -725,6 +734,7 @@ primes = sieve [2..]
 ```haskell
 ProtoHaskell> take 5 (cycle [1,2])
 [1,2,1,2,1]
+*** why is that here?
 
 ProtoHaskell> take 5 primes
 [2,3,5,7,11]
@@ -1072,6 +1082,7 @@ ClassDecl
 
 Typeclass instances follow the same pattern, they are simply the collection of
 instance constraints, the name of the typeclass, and the *head* of the
+*** What does head mean here?
 type class instance type. The declarations are a sequence of ``FunDecl`` objects
 with the bodies of the functions for each of the overloaded function
 implementations.
@@ -1168,6 +1179,8 @@ descendCaseM :: (Monad m, Applicative m) => (Expr -> m Expr) -> Match -> m Match
 descendCaseM f e = case e of
   Match ps a -> Match <$> pure ps <*> descendM f a
 ```
+*** This only applies f to the first part of "case" expressions, why?
+*** Is it just an example?
 
 The case where the monad is Identity simply corresponds to a pure expression
 rewrite.
@@ -1261,6 +1274,7 @@ c :: Expr -> RewriteM Expr
 
 t :: Expr -> RewriteM Expr
 t =  a `composeM` b `composeM` c
+*** Wouldn' one prefer  descendM (a <=< b <=< c )  ?
 ```
 
 Later we utilize both ``GHC.Generics`` and ``Uniplate`` to generalize this
