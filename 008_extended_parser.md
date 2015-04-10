@@ -36,6 +36,7 @@ The other major family of parsers, $\mathtt{LR}$, are not plagued with the same
 concerns over left recursion. On the other hand $\mathtt{LR}$ parser are
 exceedingly more complicated to implement, relying on a rather sophisticated
 method known as Tomita's algorithm to do the heavy lifting. The tooling
+*** Tomita's algorithm is for GLR parsers
 around the construction of the *production rules* in a form that can be handled
 by the algorithm is often handled by a DSL that generates the code for the parser.
 While the tooling is fairly robust, there is a level of indirection between us
@@ -435,6 +436,7 @@ infer expr = case expr of
     return (TArr l (setLoc l ty) tv)
 
   Lit l _ -> return (setLoc l typeInt)
+*** No literal booleans?
 ```
 
 Now specifically at the call site of our unification solver, if we encounter a
@@ -495,6 +497,7 @@ same logical level must have the same indentation.
 fib :: Int -> Int
 fib x = truncate $ ( 1 / sqrt 5 ) * ( phi ^ x - psi ^ x ) -- (Column: > 0)
   -- Start of new layout ( Column: 2 )
+*** Here? The place of the "where" is irrelevant.
   where
       -- Indented block ( Column: > 2 )
       phi = ( 1 + sqrt 5 ) / 2
@@ -598,6 +601,8 @@ maybeBraces p = braces (endBy p semi) <|> block p
 maybeBraces1 :: Parser a -> Parser [a]
 maybeBraces1 p = braces (endBy1 p semi) <|> block p
 ```
+*** Actually Haskell allows a combination of these styles which seems not to
+*** be supported by this definitions.
 
 Extensible Operators
 --------------------
@@ -637,6 +642,7 @@ data Fixity
   = Infix Assoc Int
   | Prefix Int
   | Postfix Int
+*** postfix operators - cool!
   deriving (Eq,Ord,Show)
 ```
 
@@ -691,6 +697,7 @@ toParser (FixitySpec ass tok) = case ass of
     Infix L _ -> infixOp tok (op (Name tok)) Ex.AssocLeft
     Infix R _ -> infixOp tok (op (Name tok)) Ex.AssocRight
     Infix N _ -> infixOp tok (op (Name tok)) Ex.AssocNone
+*** only for Infix?
 
 mkTable ops =
   map (map toParser) $
@@ -726,6 +733,8 @@ precedence = do
   then return (fromInteger n)
   else empty
   <?> "Invalid operator precedence"
+*** in Haskell the precedence has to be between 0 and 9 or may be omitted,
+*** defaulting to 9
 
 fixitydecl :: Parser Decl
 fixitydecl = do
